@@ -54,14 +54,15 @@ let filterButton = document.getElementById("filterButton")
 let filterRequest = new XMLHttpRequest()
 
 filterButton.addEventListener("click", function(){
-    filterRequest.onload = function(filterCoffee){
+    filterRequest.onload = function(){
+        const filterCoffee = JSON.parse(this.responseText)
         orderList.innerHTML = `
             <li> <strong>Email Address:</strong> ${filterCoffee.emailAddress}</li>
             <li> <strong>Coffee Order:</strong> ${filterCoffee.coffee} </li>
         `
     }
 
-    filterRequest.open("GET", `https://dc-coffeerun.herokuapp.com/api/coffeeorders/${filterBox.value}`)
+    filterRequest.open("GET", `https://dc-coffeerun.herokuapp.com/api/coffeeorders/${encodeURIComponent(filterBox.value)}`)
     filterRequest.send()
 
 
